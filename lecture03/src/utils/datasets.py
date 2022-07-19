@@ -9,8 +9,8 @@ class DfpDataset(Dataset):
         self.targets = y
 
     def __getitem__(self, idx):
-        x = torch.from_numpy(self.inputs[idx])
-        y = torch.from_numpy(self.targets[idx])
+        x = torch.from_numpy(self.inputs[idx]).float()
+        y = torch.from_numpy(self.targets[idx]).float()
         return x,y
     
     def __len__(self):

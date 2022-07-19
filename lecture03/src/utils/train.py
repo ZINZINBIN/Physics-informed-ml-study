@@ -1,4 +1,4 @@
-from tqdm import tqdm
+from tqdm.auto import tqdm
 from typing import Optional
 import torch
 import torch.nn
@@ -11,6 +11,8 @@ def train_per_epoch(
     device : str = "cpu"):
 
     train_loss = 0
+    model.train()
+    model.to(device)
 
     for idx, batch in enumerate(dataloader):
 
@@ -41,6 +43,8 @@ def valid_per_epoch(
     ):
 
     valid_loss = 0
+    model.to(device)
+    model.eval()
 
     for idx, batch in enumerate(dataloader):
         with torch.no_grad():
@@ -59,24 +63,39 @@ def valid_per_epoch(
 
 def train(
     model : torch.nn.Module, 
-    dataloader : torch.utils.data.DataLoader, 
+    train_loader : torch.utils.data.DataLoader, 
+    valid_loader : torch.utils.data.DataLoader,
     optimizer : torch.optim.Optimizer,
     loss_fn : torch.nn.Module, 
     num_epochs : int = 42,
-    device : str = "cpu"
+    device : str = "cpu",
+    verbose : int = 1,
     ):
 
     train_loss_list = []
+    valid_loss_list = []
 
     for epoch in tqdm(range(num_epochs)):
         train_loss = train_per_epoch(
             model,
-            dataloader,
+            train_loader,
+            optimizer,
+            loss_fn,
+            device
+        )
+
+        valid_loss = valid_per_epoch(
+            model,
+            valid_loader,
             optimizer,
             loss_fn,
             device
         )
 
         train_loss_list.append(train_loss)
+        valid_loss_list.append(valid_loss)
 
-    return train_loss_list
+        if epoch % verbose == 0:
+            print("Epoch : {}, train_loss : {:.3f}, valid_loss : {:.3f}".format(epoch+1, train_loss, valid_loss))
+
+    return train_loss_list, valid_loss_list

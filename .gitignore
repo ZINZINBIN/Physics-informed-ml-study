@@ -3,6 +3,6 @@
 # data type
 *.npz
 
-# lecture02/temp/burgers-groundtruth-solution.npz
-# lecture03/src/data/data-airfoils.npz
-# lecture03/src/data/download_airfoils.sh
+lecture02/temp/burgers-groundtruth-solution.npz
+lecture03/src/data/data-airfoils.npz
+lecture03/src/data/download_airfoils.sh
