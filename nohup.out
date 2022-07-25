@@ -1,0 +1,8 @@
+/home/zinzinbin/codes_for_study/Physics-informed-ml-study/temp.py:182: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  antigen_corpus['sequence'] = antigen_corpus['antigen_seq'].map(list)
+INFO: Pandarallel will run on 15 workers.
+INFO: Pandarallel will use Memory file system to transfer data between the main process and workers.
